@@ -13,9 +13,12 @@ def index(request):
     #return HttpResponse("Rango says hey there partner! <br/><a href='/rango/about/'>About</a>")
     #context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    mostview = Page.objects.order_by('-views')[:5]
+    context_dict = {'categories': category_list,
+                    'mostviews': mostview}
     # Render the response and send it back!
-    return render(request, 'rango/index.html', context_dict)
+    return render(request, 'rango/index.html', context_dict)
+
 
     
 def about(request):
