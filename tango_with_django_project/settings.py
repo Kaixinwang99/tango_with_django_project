@@ -28,6 +28,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.181','127.0.0.1']
 
+#password tuple
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    )
+
+#password validators
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': { 'min_length': 6, }
+        },
+]
 
 # Application definition
 
