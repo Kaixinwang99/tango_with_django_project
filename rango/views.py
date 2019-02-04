@@ -62,7 +62,7 @@ def about(request):
     visitor_cookie_handler(request)
     context_dict['visits']=request.session['visits']
     #return HttpResponse("Rango says here is the about page. <a href='/rango/'>Index</a>")
-    context_dict['boldmessage']= "This tutorial has been put together by Kaixin Wang"
+    #context_dict['boldmessage']= "This tutorial has been put together by Kaixin Wang"
     response = render(request, 'rango/about.html', context=context_dict)
     return response
 
