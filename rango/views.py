@@ -10,7 +10,8 @@ from rango.forms import PageForm
 from rango.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
@@ -18,7 +19,8 @@ def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
         val = default_val
-    return val
+    return val
+
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
@@ -31,12 +33,14 @@ def visitor_cookie_handler(request):
     if (datetime.now() - last_visit_time).days > 0:
         visits = visits + 1
         #update the last visit cookie now that we have updated the count
-        request.session['last_visit'] = str(datetime.now())
+        request.session['last_visit'] = str(datetime.now())
+
     else:
         # set the last visit cookie
         request.session['last_visit'] = last_visit_cookie
     # Update/set the visits cookie
-    request.session['visits'] = visits
+    request.session['visits'] = visits
+
     
 def index(request):
     # chapter 10
@@ -48,7 +52,8 @@ def index(request):
     context_dict = {'categories': category_list,
                     'mostviews': mostview}
     visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
+    context_dict['visits'] = request.session['visits']
+
     # Obtain our Response object early so we can add cookie information.
     response = render(request, 'rango/index.html', context=context_dict)
     return response
@@ -57,7 +62,8 @@ def about(request):
     #chapter 10
     if request.session.test_cookie_worked():
         print("TEST COOKIE WORKED!")
-        request.session.delete_test_cookie()
+        request.session.delete_test_cookie()
+
     context_dict={}
     visitor_cookie_handler(request)
     context_dict['visits']=request.session['visits']
@@ -161,7 +167,8 @@ def register(request):
             # Now sort out the UserProfile instance.
             # Since we need to set the user attribute ourselves,
             # we set commit=False. This delays saving the model
-            # until we're ready to avoid integrity problems.
+            # until we're ready to avoid integrity problems.
+
             profile = profile_form.save(commit=False)
             profile.user = user
             # Did the user provide a profile picture?
@@ -227,7 +234,8 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render(request, 'rango/login.html', {})
+        return render(request, 'rango/login.html', {})
+
 
 @login_required
 def restricted(request):
